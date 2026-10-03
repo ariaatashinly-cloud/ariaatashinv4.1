@@ -83,6 +83,9 @@ func (e *EngineClient) rawCall(ctx context.Context, method, path string, body an
 		return err
 	}
 	req.Header.Set("Accept", "application/json")
+	// 3x-ui 3.8.5 returns 404 for anonymous non-XHR API calls. Request
+	// its explicit 401 response so an expired session triggers re-login.
+	req.Header.Set("X-Requested-With", "XMLHttpRequest")
 	if body != nil {
 		req.Header.Set("Content-Type", "application/json")
 	}

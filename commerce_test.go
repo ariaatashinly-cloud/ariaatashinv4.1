@@ -374,7 +374,13 @@ func TestEngineExpiredSessionReloginSingleflight(t *testing.T) {
 			jsonReply(w, 200, map[string]bool{"success": true})
 		default:
 			if !allowed.Load() {
-				w.WriteHeader(401)
+				// 3x-ui 3.8.5 hides unauthenticated API routes from non-XHR
+				// callers with 404, even when Accept requests JSON.
+				status := http.StatusNotFound
+				if r.Header.Get("X-Requested-With") == "XMLHttpRequest" {
+					status = http.StatusUnauthorized
+				}
+				w.WriteHeader(status)
 				return
 			}
 			jsonReply(w, 200, map[string]any{"success": true, "obj": []Inbound{}})

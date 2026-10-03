@@ -111,7 +111,7 @@ func NewApp(cfg Config, base string) (*App, error) {
 	}
 	sub, _ := fs.Sub(assets, "web")
 	a := &App{cfg: cfg, base: base, sessions: map[string]session{}, attempts: map[string]attempt{}, routes: map[string]*httputil.ReverseProxy{}, static: http.FileServer(http.FS(sub))}
-	a.state = Snapshot{Brand: "ariaatashin", Version: "4.1.0", Settings: Settings{Brand: "ariaatashin", HostPreset: "auto", PublicURL: public, AutomaticDomain: public == ""}, Users: []User{}, Profiles: append([]Profile{}, profileTemplates...), Audit: []Audit{}, Persistent: cfg.Persistent, DataDir: cfg.DataDir, Engine: json.RawMessage(`{}`)}
+	a.state = Snapshot{Brand: "ariaatashin", Version: "4.1.1", Settings: Settings{Brand: "ariaatashin", HostPreset: "auto", PublicURL: public, AutomaticDomain: public == ""}, Users: []User{}, Profiles: append([]Profile{}, profileTemplates...), Audit: []Audit{}, Persistent: cfg.Persistent, DataDir: cfg.DataDir, Engine: json.RawMessage(`{}`)}
 	if b, err := os.ReadFile(filepath.Join(cfg.DataDir, "atia-settings.json")); err == nil {
 		var saved diskState
 		if err := json.Unmarshal(b, &saved); err != nil {

@@ -141,7 +141,7 @@ func main() {
 			stop()
 		}
 	}()
-	log.Printf("ariaatashin v4.1 listening on :%d; data=%s; separate data mount=%t; keep replicas at 1", cfg.Port, cfg.DataDir, cfg.Persistent)
+	log.Printf("ariaatashin v4.1.1 listening on :%d; data=%s; separate data mount=%t; keep replicas at 1", cfg.Port, cfg.DataDir, cfg.Persistent)
 	<-ctx.Done()
 	shutdown, cancel := context.WithTimeout(context.Background(), 8*time.Second)
 	defer cancel()
